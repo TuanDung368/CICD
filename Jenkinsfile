@@ -9,12 +9,10 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build('flask-app')
-                }
-            }
-        }
+    steps {
+        sh 'docker build -t my-flask-app .'
+    }
+}
 
         stage('Run Container') {
             steps {
