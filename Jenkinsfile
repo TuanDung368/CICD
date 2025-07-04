@@ -11,8 +11,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
-                    def app = docker.build("my-flask-app")
+                    // Ensure that Docker is installed and available in the pipeline
+                    dockerImage = docker.build("my-flask-app")
                 }
             }
         }
@@ -20,8 +20,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    // Run Docker container from the built image
-                    app.run("-p 5000:5000")
+                    // Running the container with port mapping
+                    dockerImage.run("-p 5000:5000")
                 }
             }
         }
