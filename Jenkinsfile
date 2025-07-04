@@ -7,7 +7,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/TuanDung368/CICD.git'
             }
         }
-    stages {
+    stage {
         stage('Build Docker Image') {
             steps {
                 script {
