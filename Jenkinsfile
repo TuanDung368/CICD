@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    
+    environment {
+        DOCKER_IMAGE = 'my-flask-app'
+    }
     stages {
         stage('Clone') {
             steps {
@@ -11,8 +13,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Ensure that Docker is installed and available in the pipeline
-                    dockerImage = docker.build("my-flask-app")
+                    // Build Docker image using the docker plugin
+                    docker.build("${DOCKER_IMAGE}")
                 }
             }
         }
@@ -20,8 +22,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    // Running the container with port mapping
-                    dockerImage.run("-p 5000:5000")
+                    // Run the container
+                    docker.image("${DOCKER_IMAGE}").run("-p 5000:5000")
                 }
             }
         }
